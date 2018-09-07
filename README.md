@@ -1,2 +1,2 @@
-# Edmonton---Open-Budget-Expenditure
+# Edmonton - Open Budget Expenditures
 City of Edmonton Expenditures
