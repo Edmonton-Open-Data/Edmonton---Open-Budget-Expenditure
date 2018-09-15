@@ -3,6 +3,7 @@
 <head>
     <title>Open Budget - Expenditures</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="libs/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="libs/keen_io/keen-dashboards.css">
     <link rel="stylesheet" href="libs/dc.js/dc.min.css">
@@ -316,14 +317,14 @@
                 .elasticY(true)
                 .label(d => `${d.key}: $${d.value.toLocaleString()}`)
                 .group(fundTypeGrp)
-                .clipPadding(bubble.width() * 13.214)
+                .clipPadding(10000)
                 .colors(["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4"])
                 .colorDomain([1, fundTypeKeys.length])
                 .colorAccessor((d, i) => i + 1)
                 .keyAccessor((d, i) => fundTypeKeys.indexOf(d.key) + 1)
                 .valueAccessor(d => d.value)
                 .radiusValueAccessor(d => d.value)
-                .maxBubbleRelativeSize(bubble.width() * (8 / 378375))
+                .maxBubbleRelativeSize(0.016)
                 .x(d3.scaleLinear().domain([0, 4]))
                 .r(d3.scaleLinear().domain([0, fundTypeMinMax[0]]));
 
