@@ -253,8 +253,8 @@ function viz(response, sunburstColors) {
 
 //--------------- W3 Schools Helper Functions 
 function w3_open() {
-document.getElementById("main").style.marginLeft = "60%";
-document.getElementById("mySidebar").style.width = "58%";
+document.getElementById("main").style.marginLeft = "55%";
+document.getElementById("mySidebar").style.width = "53%";
 document.getElementById("mySidebar").style.height = "90%";
 document.getElementById("mySidebar").style.display = "block";
 };

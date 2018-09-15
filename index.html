@@ -15,20 +15,20 @@
 <body class="application">
     <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
         <button class="w3-bar-item w3-button w3-large"onclick="w3_close()">Close &times;</button>
-        <a href="http://budget.edmonton.ca/#!/year/default" target="_blank" class="w3-bar-item w3-button">Open Budget</a>
-        <div class="w3-bar-item w3-button" onclick="myAccFunc('demoAcc')">Departments <i class="fa fa-caret-down"></i></div>
+        <a href="http://budget.edmonton.ca/#!/year/default" target="_blank" class="w3-bar-item w3-button">Open Budget (Website Link)</a>
+        <div class="w3-bar-item w3-button sel" onclick="myAccFunc('demoAcc')">Departments <i class="fa fa-caret-down"></i></div>
         <div id="demoAcc" class="w3-hide w3-white w3-card-4">
             <div class="w3-bar-item w3-button" id="sel-departments"></div>
         </div>
-        <div class="w3-bar-item w3-button" onclick="myAccFunc('demoAcc2')">Years <i class="fa fa-caret-down"></i></div>
+        <div class="w3-bar-item w3-button sel" onclick="myAccFunc('demoAcc2')">Years <i class="fa fa-caret-down"></i></div>
         <div id="demoAcc2" class="w3-hide w3-white w3-card-4">
             <div class="w3-bar-item w3-button" id="sel-years"></div>
         </div>
-        <div class="w3-bar-item w3-button" onclick="myAccFunc('demoAcc3')">Fund Types <i class="fa fa-caret-down"></i></div>
+        <div class="w3-bar-item w3-button sel" onclick="myAccFunc('demoAcc3')">Fund Types <i class="fa fa-caret-down"></i></div>
         <div id="demoAcc3" class="w3-hide w3-white w3-card-4">
             <div class="w3-bar-item w3-button" id="sel-fund-types"></div>
         </div>
-        <div class="w3-bar-item w3-button" onclick="myAccFunc('demoAcc4')">Branches & Programs <i class="fa fa-caret-down"></i></div>
+        <div class="w3-bar-item w3-button sel" onclick="myAccFunc('demoAcc4')">Branches & Programs <i class="fa fa-caret-down"></i></div>
         <div id="demoAcc4" class="w3-hide w3-white w3-card-4">
             <div class="w3-bar-item w3-button" id="sel-branch-programs"></div>
         </div>
@@ -39,7 +39,7 @@
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button id="openNav" class="w3-button w3-darkblue w3-xlarge" onclick="w3_open()">
+                    <button id="openNav" class="w3-button w3-darkblue w3-large" onclick="w3_open()">
                         &#9776; Open Budget Expenditures - City of Edmonton
                     </button>
                 </div>

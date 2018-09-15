@@ -1,31 +1,27 @@
-/* Width for all dc.js charts */
 .svg-container { width: 100%; }
 
-/* Color for side panel button and selected accordion */
 .w3-darkblue, .w3-darkblue:hover {
     color: #fff!important;
     background-color:rgb(63, 75, 88)!important;
 }
 
-/* Hide x and y axis for bubble chart */
 #bubble-chart svg g g.axis.x { display: none; }
 #bubble-chart svg g g.axis.y { display: none; }
 #bubble-chart text { font-size: 1.17em; }
 
-/* Lighter Color for Row Text */
 #row-chart > svg > g > g.row > text { fill: rgb(82, 80, 80); }
 
-/* Minimizes stroke width for selected pie slice */
 #sun-burst g.pie-slice.selected path { stroke-width: 0; }
 
-/* For Data Table td cells */
-#data-table td { font-size: 0.9em; }
+#data-table td { font-size: 0.8em; }
+#data-table label,
+#data-table th,
+#mySidebar .sel { font-size: 0.85em; }
 
-/* For Options Text */
 #sel-departments option,
 #sel-years option,
 #sel-fund-types option,
-#sel-branch-programs option { font-size: 0.88em; }
+#sel-branch-programs option { font-size: 0.8em; }
 
 #DataTables_Table_0_wrapper { margin-top: 0.5em; }
 #bubble-chart text { 
