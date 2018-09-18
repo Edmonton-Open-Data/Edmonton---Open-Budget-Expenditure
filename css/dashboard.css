@@ -25,8 +25,8 @@
 
 #DataTables_Table_0_wrapper { margin-top: 0.5em; }
 #bubble-chart text { 
-    font-size: 1.0em; 
-    transform: rotate(17deg);
+    font-size: 0.965em; 
+    transform: rotate(-17deg);
 }
 
 #bubble-chart text.stats { transform: rotate(0deg); }

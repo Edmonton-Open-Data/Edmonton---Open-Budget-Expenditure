@@ -107,7 +107,7 @@ function viz(response, sunburstColors) {
         .height(bar.width() * 0.25)
         .margins({
             top: bar.width() * 0.017, bottom: bar.width() * 0.04,
-            right: bar.width() * 0.033, left: bar.width() * 0.18
+            right: bar.width() * 0.033, left: bar.width() * 0.20
         })
         .dimension(budgetYrDim)
         .elasticY(true)
@@ -123,7 +123,7 @@ function viz(response, sunburstColors) {
         .margins(
             {
                 top: bubble.width() * 0.121, bottom: bubble.width() * 0.097,
-                left:-(bubble.width() * 0.0121), right: bubble.width() * 0.169
+                left:-(bubble.width() * 0.0120), right: bubble.width() * 0.169
             }
         )
         .dimension(fundTypeDim)
@@ -142,7 +142,7 @@ function viz(response, sunburstColors) {
         .r(d3.scaleLinear().domain([0, fundTypeMinMax[0]]));
 
     sunBurst
-        .height(sunBurst.width() * 0.897)
+        .height(sunBurst.width() * 0.898)
         .label(d => d.budget, false)
         .dimension(branProgDim)
         .group(branProgGrp)
@@ -205,7 +205,7 @@ function viz(response, sunburstColors) {
     const texts = [
             {
                 id:"stats-title", 
-                x: bubble.width() * 0.40, 
+                x: bubble.width() * 0.41, 
                 y: bubble.height() * 0.15, 
                 content: "Sum:", 
                 "text-anchor": "start",
@@ -213,7 +213,7 @@ function viz(response, sunburstColors) {
             },
             {
                 id: "sum",
-                x: bubble.width() * 0.5,
+                x: bubble.width() * 0.51,
                 y: bubble.height() * 0.15, 
                 content: "$"+sumofAllExpends.value().toLocaleString(),
                 "text-anchor": "start",
@@ -253,27 +253,27 @@ function viz(response, sunburstColors) {
 
 //--------------- W3 Schools Helper Functions 
 function w3_open() {
-document.getElementById("main").style.marginLeft = "55%";
-document.getElementById("mySidebar").style.width = "53%";
-document.getElementById("mySidebar").style.height = "90%";
-document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("main").style.marginLeft = "55.8%";
+    document.getElementById("mySidebar").style.width = "53%";
+    document.getElementById("mySidebar").style.height = "90%";
+    document.getElementById("mySidebar").style.display = "block";
 };
 
 function w3_close() {
-document.getElementById("main").style.marginLeft = "0%";
-document.getElementById("mySidebar").style.display = "none";
-document.getElementById("openNav").style.display = "inline-block";
+    document.getElementById("main").style.marginLeft = "0%";
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("openNav").style.display = "inline-block";
 };
 
 function myAccFunc(id) {
-const x = document.getElementById(id);
-if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-    x.previousElementSibling.className += " w3-darkblue";
-} else { 
-    x.className = x.className.replace(" w3-show", "");
-    x.previousElementSibling.className = 
-    x.previousElementSibling.className.replace(" w3-darkblue", "");
-}
+    const x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-darkblue";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className = 
+        x.previousElementSibling.className.replace(" w3-darkblue", "");
+    }
 };
 //--------------- W3 Schools Helper Functions 
