@@ -28,8 +28,22 @@ const bubbleSels = dc.selectMenu("#sel-fund-types");
 const sunBurstSels = dc.selectMenu("#sel-branch-programs");
 const recordCounter = dc.dataCount("#records-count");
 
-const laptopScreen = {marginLeft: "55.8%", width: "53%", height: "90%", selection: 11, bubbleHghtPrcnt: 0.506, barMrgnLf: 0.20};//1366 * 768
-const monitorScreen = {marginLeft: "39.5%", width: "38%", height: "92%", selection: 13, bubbleHghtPrcnt: 0.549, barMrgnLf: 0.13}//1920 * 1080
+//1366 * 768
+const laptopScreen = {
+    marginLeft: "55.8%", width: "53%", height: "90%", selection: 11, 
+    bubbleHght: 0.506, barMrgnLf: 0.20, maxBubbleRelativeSize: 0.03, 
+    bubbleMrgnTop: 0.121, bubbleMrgnBottom: 0.097, bubbleMrgnLeft: 0.0120, 
+    bubbleMrgnRight: 0.169, statsTitleX: 0.41, sumX: 0.51
+};
+
+//1920 * 1080
+const monitorScreen = {
+    marginLeft: "38.5%", width: "37%", height: "92%", selection: 13, 
+    bubbleHght: 0.549, barMrgnLf: 0.13, maxBubbleRelativeSize: 0.023, 
+    bubbleMrgnTop: 0.22, bubbleMrgnBottom: 0.050, bubbleMrgnLeft: 0, 
+    bubbleMrgnRight: 0.125, statsTitleX: 0.39, sumX: 0.49
+};
+
 const windowInnerWidth = window.innerWidth;
 
 //load data json files
@@ -72,19 +86,19 @@ function viz(response, sunburstColors) {
 
     //title, multiple, order assignment, and customFilter func for each select menu
     [rowSels, barSels, bubbleSels, sunBurstSels].forEach(sel => {
-            sel
-                .title(d => `${d.key}: $${d.value.toLocaleString()}`)
-                .multiple(true)
-                .order((a, b) => b.value > a.value ? 1 : a.value > b.value ? -1 : 0)
-                .on("filtered." + sel.chartID(), sumUpdater);
-        });
+        sel
+            .title(d => `${d.key}: $${d.value.toLocaleString()}`)
+            .multiple(true)
+            .order((a, b) => b.value > a.value ? 1 : a.value > b.value ? -1 : 0)
+            .on("filtered." + sel.chartID(), sumUpdater);
+    });
 
     //title, viewBoxResizing, and customFilter func for each chart
     [row, bar, bubble, sunBurst].forEach(chart => {
-            chart
-                .title(d => `${d.key}: $${d.value.toLocaleString()}`)
-                .useViewBoxResizing(true)
-                .on("filtered." + chart.chartID(), sumUpdater);
+        chart
+            .title(d => `${d.key}: $${d.value.toLocaleString()}`)
+            .useViewBoxResizing(true)
+            .on("filtered." + chart.chartID(), sumUpdater);
     });
 
     recordCounter.dimension(ndx)
@@ -95,23 +109,23 @@ function viz(response, sunburstColors) {
         });
 
     row
-        .height(row.width() * 0.9)
-        .dimension(departDim)
+        .height(chartMeasure(row, 0.9))
         .margins({
-            top: row.width() * 0.024, left: row.width() * 0.012, 
-            bottom: row.width() * 0.043, right: row.width() * 0.024
+            top: chartMeasure(row, 0.024), left: chartMeasure(row, 0.012), 
+            bottom: chartMeasure(row, 0.043), right: chartMeasure(row, 0.024)
         })
+        .dimension(departDim)
         .elasticX(true)
         .colors(rowColorScale)
-        .colorAccessor((d, i) => d.key)
+        .colorAccessor(d => d.key)
         .group(departGrp);
     row.xAxis().ticks(4); 
 
     bar
-        .height(bar.width() * 0.25)
+        .height(chartMeasure(bar, 0.25))
         .margins({
-            top: bar.width() * 0.017, bottom: bar.width() * 0.04,
-            right: bar.width() * 0.033, left: bar.width() * screenSelector().barMrgnLf
+            top: chartMeasure(bar, 0.017), bottom: chartMeasure(bar, 0.04),
+            right: chartMeasure(bar, 0.04), left: chartMeasure(bar, screenSelector().barMrgnLf)
         })
         .dimension(budgetYrDim)
         .elasticY(true)
@@ -123,11 +137,11 @@ function viz(response, sunburstColors) {
     bar.yAxis().ticks(4); 
     
     bubble
-        .height(bubble.width() * screenSelector().bubbleHghtPrcnt)
+        .height(chartMeasure(bubble, screenSelector().bubbleHght))
         .margins(
             {
-                top: bubble.width() * 0.121, bottom: bubble.width() * 0.097,
-                left:-(bubble.width() * 0.0120), right: bubble.width() * 0.169
+                top: chartMeasure(bubble, screenSelector().bubbleMrgnTop), bottom: chartMeasure(bubble, screenSelector().bubbleMrgnBottom),
+                left:-(chartMeasure(bubble, screenSelector().bubbleMrgnLeft)), right: chartMeasure(bubble, screenSelector().bubbleMrgnRight)
             }
         )
         .dimension(fundTypeDim)
@@ -138,10 +152,10 @@ function viz(response, sunburstColors) {
         .colors(["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4"])
         .colorDomain([1, fundTypeKeys.length])
         .colorAccessor((d, i) => i + 1)
-        .keyAccessor((d, i) => fundTypeKeys.indexOf(d.key) + 1)
+        .keyAccessor(d => fundTypeKeys.indexOf(d.key) + 1)
         .valueAccessor(d => d.value)
         .radiusValueAccessor(d => d.value)
-        .maxBubbleRelativeSize(0.03)
+        .maxBubbleRelativeSize(screenSelector().maxBubbleRelativeSize)
         .x(d3.scaleLinear().domain([0, 4]))
         .r(d3.scaleLinear().domain([0, fundTypeMinMax[0]]));
 
@@ -151,7 +165,7 @@ function viz(response, sunburstColors) {
         .dimension(branProgDim)
         .group(branProgGrp)
         .colors(sunBurstColorScale)
-        .colorAccessor((d, i) => d.key);
+        .colorAccessor(d => d.key);
 
     table
         .dimension(budgetYrDim )
@@ -184,8 +198,6 @@ function viz(response, sunburstColors) {
             }
         ]);
 
-
-
     rowSels
         .dimension(departDim)
         .group(departGrp)
@@ -209,23 +221,23 @@ function viz(response, sunburstColors) {
     dc.renderAll();
 
     const texts = [
-            {
-                id:"stats-title", 
-                x: bubble.width() * 0.41, 
-                y: bubble.height() * 0.15, 
-                content: "Sum:", 
-                "text-anchor": "start",
-                "font-size": Math.round(bubble.height() * 0.065, 1)
-            },
-            {
-                id: "sum",
-                x: bubble.width() * 0.51,
-                y: bubble.height() * 0.15, 
-                content: "$"+sumofAllExpends.value().toLocaleString(),
-                "text-anchor": "start",
-                "font-size": Math.round(bubble.height() * 0.11, 1)
-            }
-        ];
+        {
+            id:"stats-title", 
+            x: chartMeasure(bubble, screenSelector().statsTitleX), 
+            y: bubble.height() * 0.15, 
+            content: "Sum:", 
+            "text-anchor": "start",
+            "font-size": Math.round(bubble.height() * 0.065, 1)
+        },
+        {
+            id: "sum",
+            x: chartMeasure(bubble, screenSelector().sumX),
+            y: bubble.height() * 0.15, 
+            content: "$"+sumofAllExpends.value().toLocaleString(),
+            "text-anchor": "start",
+            "font-size": Math.round(bubble.height() * 0.11, 1)
+        }
+    ];
 
     d3.select("#bubble-chart > svg")
       .selectAll("text.stats")
@@ -254,6 +266,10 @@ function viz(response, sunburstColors) {
     function sumUpdater() {
         //update the sum text
         d3.select("#sum").html( '$'+sumofAllExpends.value().toLocaleString() );
+    };
+
+    function chartMeasure(chart, widthPercent) {
+        return chart.width() * widthPercent;
     };
 };
 
@@ -286,6 +302,6 @@ function myAccFunc(id) {
         x.className = x.className.replace(" w3-show", "");
         x.previousElementSibling.className = 
         x.previousElementSibling.className.replace(" w3-darkblue", "");
-    }
+    };
 };
 //--------------- W3 Schools Helper Functions 
