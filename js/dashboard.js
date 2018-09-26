@@ -28,6 +28,10 @@ const bubbleSels = dc.selectMenu("#sel-fund-types");
 const sunBurstSels = dc.selectMenu("#sel-branch-programs");
 const recordCounter = dc.dataCount("#records-count");
 
+const laptopScreen = {marginLeft: "55.8%", width: "53%", height: "90%", selection: 11, bubbleHghtPrcnt: 0.506, barMrgnLf: 0.20};//1366 * 768
+const monitorScreen = {marginLeft: "39.5%", width: "38%", height: "92%", selection: 13, bubbleHghtPrcnt: 0.549, barMrgnLf: 0.13}//1920 * 1080
+const windowInnerWidth = window.innerWidth;
+
 //load data json files
 Promise
     .all([
@@ -67,7 +71,7 @@ function viz(response, sunburstColors) {
     const fundTypeMinMax = [fundTypeValues[0], fundTypeValues[fundTypeValues.length - 1]];
 
     //title, multiple, order assignment, and customFilter func for each select menu
-    const selcts = [rowSels, barSels, bubbleSels, sunBurstSels].forEach(sel => {
+    [rowSels, barSels, bubbleSels, sunBurstSels].forEach(sel => {
             sel
                 .title(d => `${d.key}: $${d.value.toLocaleString()}`)
                 .multiple(true)
@@ -76,7 +80,7 @@ function viz(response, sunburstColors) {
         });
 
     //title, viewBoxResizing, and customFilter func for each chart
-    const charts = [row, bar, bubble, sunBurst].forEach(chart => {
+    [row, bar, bubble, sunBurst].forEach(chart => {
             chart
                 .title(d => `${d.key}: $${d.value.toLocaleString()}`)
                 .useViewBoxResizing(true)
@@ -107,7 +111,7 @@ function viz(response, sunburstColors) {
         .height(bar.width() * 0.25)
         .margins({
             top: bar.width() * 0.017, bottom: bar.width() * 0.04,
-            right: bar.width() * 0.033, left: bar.width() * 0.20
+            right: bar.width() * 0.033, left: bar.width() * screenSelector().barMrgnLf
         })
         .dimension(budgetYrDim)
         .elasticY(true)
@@ -119,7 +123,7 @@ function viz(response, sunburstColors) {
     bar.yAxis().ticks(4); 
     
     bubble
-        .height(bubble.width() * 0.506)
+        .height(bubble.width() * screenSelector().bubbleHghtPrcnt)
         .margins(
             {
                 top: bubble.width() * 0.121, bottom: bubble.width() * 0.097,
@@ -180,10 +184,12 @@ function viz(response, sunburstColors) {
             }
         ]);
 
+
+
     rowSels
         .dimension(departDim)
         .group(departGrp)
-        .numberVisible(11);   
+        .numberVisible(screenSelector().selection);   
 
     barSels
         .dimension(budgetYrDim)
@@ -198,7 +204,7 @@ function viz(response, sunburstColors) {
     sunBurstSels
         .dimension(branProgDim)
         .group(branProgGrp)
-        .numberVisible(11);   
+        .numberVisible(screenSelector().selection);   
 
     dc.renderAll();
 
@@ -251,11 +257,17 @@ function viz(response, sunburstColors) {
     };
 };
 
+function screenSelector(size = windowInnerWidth) {
+    return size < 768 ? laptopScreen:
+           size >= 768 && size != 1024 && size <= 1366 ? laptopScreen:
+           monitorScreen;
+};
+
 //--------------- W3 Schools Helper Functions 
 function w3_open() {
-    document.getElementById("main").style.marginLeft = "55.8%";
-    document.getElementById("mySidebar").style.width = "53%";
-    document.getElementById("mySidebar").style.height = "90%";
+    document.getElementById("main").style.marginLeft = screenSelector().marginLeft;
+    document.getElementById("mySidebar").style.width = screenSelector().width;
+    document.getElementById("mySidebar").style.height = screenSelector().height;
     document.getElementById("mySidebar").style.display = "block";
 };
 
