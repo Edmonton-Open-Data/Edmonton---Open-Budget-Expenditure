@@ -155,7 +155,7 @@ function viz(response, sunburstColors) {
         .keyAccessor(d => fundTypeKeys.indexOf(d.key) + 1)
         .valueAccessor(d => d.value)
         .radiusValueAccessor(d => d.value)
-        .maxBubbleRelativeSize(screenSelector().maxBubbleRelativeSize)
+        .maxBubbleRelativeSize(laptopScreen.maxBubbleRelativeSize)
         .x(d3.scaleLinear().domain([0, 4]))
         .r(d3.scaleLinear().domain([0, fundTypeMinMax[0]]));
 
