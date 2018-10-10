@@ -39,9 +39,8 @@ const laptopScreen = {
 //1920 * 1080
 const monitorScreen = {
     marginLeft: "38.5%", width: "37%", height: "92%", selection: 13, 
-    bubbleHght: 0.549, barMrgnLf: 0.13, maxBubbleRelativeSize: 0.023, 
-    bubbleMrgnTop: 0.22, bubbleMrgnBottom: 0.050, bubbleMrgnLeft: 0, 
-    bubbleMrgnRight: 0.125, statsTitleX: 0.39, sumX: 0.49
+    bubbleHght: 0.549, barMrgnLf: 0.13, maxBubbleRelativeSize: 0.023,    
+    statsTitleX: 0.39, sumX: 0.49
 };
 
 const windowInnerWidth = window.innerWidth;
