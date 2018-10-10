@@ -140,8 +140,8 @@ function viz(response, sunburstColors) {
         .height(chartMeasure(bubble, screenSelector().bubbleHght))
         .margins(
             {
-                top: chartMeasure(bubble, screenSelector().bubbleMrgnTop), bottom: chartMeasure(bubble, screenSelector().bubbleMrgnBottom),
-                left:-(chartMeasure(bubble, screenSelector().bubbleMrgnLeft)), right: chartMeasure(bubble, screenSelector().bubbleMrgnRight)
+                top: chartMeasure(bubble, laptopScreen.bubbleMrgnTop), bottom: chartMeasure(bubble, laptopScreen.bubbleMrgnBottom),
+                left:-(chartMeasure(bubble, laptopScreen.bubbleMrgnLeft)), right: chartMeasure(bubble, laptopScreen.bubbleMrgnRight)
             }
         )
         .dimension(fundTypeDim)
@@ -274,8 +274,8 @@ function viz(response, sunburstColors) {
 };
 
 function screenSelector(size = windowInnerWidth) {
-    return size < 768 ? laptopScreen:
-           size >= 768 && size != 1024 && size <= 1366 ? laptopScreen:
+    return size <= 768 ? laptopScreen:
+           size > 768 && size <= 1366 ? laptopScreen:
            monitorScreen;
 };
 
