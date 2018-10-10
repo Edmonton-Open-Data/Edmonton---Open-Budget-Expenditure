@@ -32,7 +32,7 @@ const recordCounter = dc.dataCount("#records-count");
 const laptopScreen = {
     marginLeft: "55.8%", width: "53%", height: "90%", selection: 11, 
     bubbleHght: 0.506, barMrgnLf: 0.20, maxBubbleRelativeSize: 0.03, 
-    bubbleMrgnTop: 0.121, bubbleMrgnBottom: 0.097, bubbleMrgnLeft: 0.0120, 
+    bubbleMrgnTop: 0.2, bubbleMrgnBottom: 0.097, bubbleMrgnLeft: 0.0120, 
     bubbleMrgnRight: 0.169, statsTitleX: 0.41, sumX: 0.51
 };
 
